@@ -7,35 +7,60 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightBlueAccent,
       appBar: AppBar(
         title: const Text('Instituto Girasoles'),
         centerTitle: true,
-        backgroundColor: Colors.yellow,
+        backgroundColor: Colors.amberAccent,
       ),
       body: Center(
         child: Builder(
           builder: (context) {
             return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              spacing: 8.0,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Iniciar Sesión'),
-                const SizedBox(height: 15),
-                const TextFieldDNI(),
-                const TextFieldPassword(),
-                const SizedBox(height: 10),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.yellow,
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text(
+                        'Iniciar Sesión',
+                        style: TextStyle(fontSize: 28.0),
+                      ),
+                      const SizedBox(height: 15),
+                      const TextFieldDNI(),
+                      const SizedBox(height: 8),
+                      const TextFieldPassword(),
+                      const SizedBox(height: 10),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.amberAccent,
+                        ),
+                        onPressed: () {
+                          print('Ingresando');
+                        },
+                        child: const Text(
+                          'Ingresar',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ],
                   ),
-                  onPressed: () {
-                    print('Click!');
-                  },
-                  child: const Text(
-                    'Ingresar',
-                    style: TextStyle(color: Colors.black),
-                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('¿Todavía no te registraste?'),
+                    TextButton(
+                      onPressed: () {
+                        print('Ir a registrarse');
+                      },
+                      child: const Text(
+                        'Hazlo Aquí',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             );
