@@ -1,7 +1,7 @@
 # alumnos-girasoles
 ## Idea Principal
 Esta será una aplicación que haré para mi mamá, ella es maestra de primaria.
-Las funcionalidades básicas que pedió fueron:
+Las funcionalidades básicas que pidió fueron:
 - llevar un seguimiento de sus alumnos y su información personales.
 - tener la  información y contacto de cada padre/tutor responsable de un alumno.
 - poder tener separados la información de los alumnos por curso.
