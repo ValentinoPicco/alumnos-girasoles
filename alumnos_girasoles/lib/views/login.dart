@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -28,7 +29,7 @@ class LoginScreen extends StatelessWidget {
                         style: TextStyle(fontSize: 28.0),
                       ),
                       const SizedBox(height: 15),
-                      const TextFieldDNI(),
+                      const TextFieldEmail(),
                       const SizedBox(height: 8),
                       const TextFieldPassword(),
                       const SizedBox(height: 10),
@@ -38,6 +39,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                         onPressed: () {
                           print('Ingresando');
+                          singInDocente('email', 'password');
                         },
                         child: const Text(
                           'Ingresar',
@@ -69,10 +71,26 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
+
+  void singInDocente(String email, String password) async {
+    final response = await Supabase.instance.client.auth.signInWithPassword(
+      email: email,
+      password: password,
+    );
+
+    if (response.user != null) {
+      print('Ingresaste con éxito: ${response.user!.email}');
+      // Podés redirigir a otra pantalla o mostrar mensaje
+    } else if (response.session == null) {
+      print('Registro incompleto, falta confirmar el email');
+    } else {
+      print('Error: ${response}');
+    }
+  }
 }
 
-class TextFieldDNI extends StatelessWidget {
-  const TextFieldDNI({super.key});
+class TextFieldEmail extends StatelessWidget {
+  const TextFieldEmail({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +99,7 @@ class TextFieldDNI extends StatelessWidget {
       child: TextField(
         decoration: InputDecoration(
           border: OutlineInputBorder(),
-          labelText: 'DNI',
+          labelText: 'Email',
         ),
       ),
     );

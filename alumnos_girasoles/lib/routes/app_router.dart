@@ -1,4 +1,4 @@
-import 'package:alumnos_giasoles/views/login.dart';
+import 'package:alumnos_girasoles/views/login.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
