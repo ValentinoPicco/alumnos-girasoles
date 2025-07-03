@@ -1,6 +1,6 @@
 import 'package:alumnos_giasoles/routes/app_router.dart';
 import 'package:flutter/material.dart';
-import 'package:alumnos_giasoles/screens/login.dart';
+import 'package:alumnos_giasoles/views/login.dart';
 
 void main() => runApp(const MyApp());
 
