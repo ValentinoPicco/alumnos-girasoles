@@ -39,7 +39,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                         onPressed: () {
                           print('Ingresando');
-                          singInDocente('email', 'password');
+                          signInDocente('email', 'password');
                         },
                         child: const Text(
                           'Ingresar',
@@ -72,19 +72,23 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  void singInDocente(String email, String password) async {
-    final response = await Supabase.instance.client.auth.signInWithPassword(
-      email: email,
-      password: password,
-    );
+  void signInDocente(String email, String password) async {
+    try {
+      final response = await Supabase.instance.client.auth.signInWithPassword(
+        email: email,
+        password: password,
+      );
 
-    if (response.user != null) {
-      print('Ingresaste con éxito: ${response.user!.email}');
-      // Podés redirigir a otra pantalla o mostrar mensaje
-    } else if (response.session == null) {
-      print('Registro incompleto, falta confirmar el email');
-    } else {
-      print('Error: ${response}');
+      if (response.user != null) {
+        print('Ingresaste con éxito: ${response.user!.email}');
+        // Podés redirigir a otra pantalla o mostrar mensaje
+      } else if (response.session == null) {
+        print('Registro incompleto, falta confirmar el email');
+      } else {
+        print('Error: ${response}');
+      }
+    } catch (e) {
+      print('Error: $e');
     }
   }
 }
