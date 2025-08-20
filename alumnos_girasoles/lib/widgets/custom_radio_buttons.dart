@@ -61,7 +61,10 @@ class _CustomRadioButtonsState extends State<CustomRadioButtons> {
     for (int i = 0; i < widget.options.length; i++) {
       buttons.add(_buildButton(widget.options[i], i));
       if (i < widget.options.length - 1) {
-        buttons.add(const SizedBox(width: 10));
+        if (Platform.isAndroid || Platform.isIOS)
+          buttons.add(const SizedBox(width: 10));
+        else
+          buttons.add(const SizedBox(height: 10));
       }
     }
     return changeIU(buttons);
