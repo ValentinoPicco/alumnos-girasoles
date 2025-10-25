@@ -1,4 +1,5 @@
 import 'package:alumnos_girasoles/views/login.dart';
+import 'package:alumnos_girasoles/views/register.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -6,6 +7,8 @@ class AppRouter {
     switch (settings.name) {
       case LoginScreen.routeName:
         return MaterialPageRoute(builder: (_) => LoginScreen());
+      case RegisterScreen.routeName:
+        return MaterialPageRoute(builder: (_) => RegisterScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
