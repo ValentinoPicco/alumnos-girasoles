@@ -106,10 +106,7 @@ class RegisterController {
     AuthResponse? response;
 
     try {
-      final response = await supabase.auth.signUp(
-        email: email,
-        password: password,
-      );
+      response = await supabase.auth.signUp(email: email, password: password);
     } catch (e) {
       debugPrint('error al registrar user: $e');
     }
