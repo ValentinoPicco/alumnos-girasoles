@@ -4,7 +4,7 @@ import 'package:alumnos_girasoles/widgets/custom_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-  static const String routeName = '/';
+  static const String routeName = '/l';
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
