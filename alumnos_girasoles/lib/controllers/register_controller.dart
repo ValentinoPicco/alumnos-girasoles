@@ -98,8 +98,8 @@ class RegisterController {
     String password,
     String? gradeHolder,
     String selectedLevel,
-    List<String> subjects,
-    List<String> grades,
+    Set<String> subjects,
+    Set<String> grades,
   ) async {
     email = email.trim();
     password = password.trim();
@@ -182,8 +182,8 @@ class RegisterController {
   Future<bool> insertTeach(
     int dni,
     String selectedLevel,
-    List<String> subjects,
-    List<String> grades,
+    Set<String> subjects,
+    Set<String> grades,
     String? gradeHolder,
   ) async {
     Teach teach;

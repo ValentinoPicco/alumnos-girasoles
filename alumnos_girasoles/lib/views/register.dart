@@ -416,12 +416,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ElevatedButton(
                         onPressed: () {
                           // setState(() => step = 5);
-                          registerAccount(
-                            int.parse(dniController.text.trim()),
+                          registerControler.registerAccount(
+                            dniController.text.trim(),
                             nombreController.text,
                             apellidoController.text,
                             emailController.text.trim(),
                             passwordController.text.trim(),
+                            responsibleGrade,
+                            selectedLevel,
+                            selectedSubjects,
+                            selectedGrades,
                           );
                         },
                         child: Text('Completar registro'),
@@ -450,120 +454,5 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
       body: Center(child: buildStepContent()),
     );
-  }
-
-  // borrar y usar el controller
-  Future<bool> validarDatos() async {
-    if (dniController.text.isEmpty ||
-        nombreController.text.isEmpty ||
-        apellidoController.text.isEmpty ||
-        emailController.text.isEmpty ||
-        passwordController.text.isEmpty ||
-        confirmPasswordController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor, completa todos los campos')),
-      );
-      return false;
-    }
-
-    final email = emailController.text.trim();
-    final dni = dniController.text.trim();
-
-    final dniResponse = await Supabase.instance.client
-        .from('docentes')
-        .select()
-        .eq('dni', dni)
-        .maybeSingle();
-
-    if (dniResponse != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Ya existe un docente con ese DNI',
-            textAlign: TextAlign.center,
-          ),
-        ),
-      );
-      return false;
-    }
-
-    final emailResponse = await Supabase.instance.client
-        .from('docentes')
-        .select()
-        .eq('email', email)
-        .maybeSingle();
-
-    if (emailResponse != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Ya existe un docente con ese email',
-            textAlign: TextAlign.center,
-          ),
-        ),
-      );
-      return false;
-    }
-
-    if (!emailController.text.contains('@')) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor, ingresa un correo válido')),
-      );
-      return false;
-    }
-
-    if (passwordController.text.length < 6) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('La contraseña debe tener al menos 6 caracteres'),
-        ),
-      );
-      return false;
-    }
-
-    if (passwordController.text.trim() !=
-        confirmPasswordController.text.trim()) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Las contraseñas no coinciden')));
-      return false;
-    }
-
-    return true;
-  }
-
-  Future<bool> registerAccount(
-    int dni,
-    String name,
-    String surname,
-    String email,
-    String password,
-  ) async {
-    final response = await Supabase.instance.client.auth.signUp(
-      email: email,
-      password: password,
-    );
-
-    final user = response.user;
-
-    Teacher newTeacher = Teacher(
-      dni: dni,
-      surname: surname,
-      name: name,
-      authId: user!.id,
-    );
-
-    try {
-      final insert = await Supabase.instance.client
-          .from('teachers')
-          .insert(newTeacher.toMap())
-          .select(); // para que devuelva la fila insertada
-
-      debugPrint('Insert OK: $insert');
-      return true;
-    } catch (e) {
-      debugPrint('Error al insertar: $e');
-      return false;
-    }
   }
 }
