@@ -1,7 +1,5 @@
 import 'package:alumnos_girasoles/controllers/register_controller.dart';
-import 'package:alumnos_girasoles/models/teacher.dart';
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:alumnos_girasoles/widgets/custom_text_field.dart';
 import 'package:alumnos_girasoles/widgets/custom_radio_buttons.dart';
 import 'package:alumnos_girasoles/widgets/do_you_have_an_account.dart';
