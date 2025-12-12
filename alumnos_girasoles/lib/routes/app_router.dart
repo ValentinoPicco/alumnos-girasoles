@@ -1,5 +1,6 @@
 import 'package:alumnos_girasoles/views/login.dart';
 import 'package:alumnos_girasoles/views/register.dart';
+import 'package:alumnos_girasoles/views/home.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -9,6 +10,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case RegisterScreen.routeName:
         return MaterialPageRoute(builder: (_) => RegisterScreen());
+      case HomeScreen.routeName:
+        return MaterialPageRoute(builder: (_) => HomeScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
