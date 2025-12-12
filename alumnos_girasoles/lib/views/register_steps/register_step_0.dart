@@ -33,62 +33,91 @@ class RegisterStep0 extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                'Completa tus datos',
-                style: TextStyle(fontSize: 28.0),
-                textAlign: TextAlign.center,
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Card(
+                    color: Colors.amberAccent,
+                    elevation: 10,
+                    child: SizedBox(
+                      width: 350,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 15),
+                          const Text(
+                            'Completa tus datos',
+                            style: TextStyle(fontSize: 28.0),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 15),
+                          CustomTextField(
+                            labelText: 'DNI',
+                            controller: dniController,
+                          ),
+                          const SizedBox(height: 8),
+                          CustomTextField(
+                            labelText: 'Nombre',
+                            controller: nombreController,
+                          ),
+                          const SizedBox(height: 8),
+                          CustomTextField(
+                            labelText: 'Apellido',
+                            controller: apellidoController,
+                          ),
+                          const SizedBox(height: 8),
+                          CustomTextField(
+                            labelText: 'Email',
+                            controller: emailController,
+                          ),
+                          const SizedBox(height: 8),
+                          CustomTextField(
+                            labelText: 'Contraseña',
+                            obscureText: true,
+                            controller: passwordController,
+                          ),
+                          const SizedBox(height: 8),
+                          CustomTextField(
+                            labelText: 'Confirmar Contraseña',
+                            obscureText: true,
+                            controller: confirmPasswordController,
+                          ),
+                          const SizedBox(height: 20),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.amber,
+                            ),
+                            onPressed: () async {
+                              if (await registerControler.validarDatos(
+                                dniController.text,
+                                nombreController.text,
+                                apellidoController.text,
+                                emailController.text,
+                                passwordController.text,
+                                confirmPasswordController.text,
+                                context,
+                              )) {
+                                onNext();
+                              }
+                            },
+                            child: const Text(
+                              'Siguiente',
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
+                          const SizedBox(height: 25),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 15),
-              CustomTextField(labelText: 'DNI', controller: dniController),
-              const SizedBox(height: 8),
-              CustomTextField(
-                labelText: 'Nombre',
-                controller: nombreController,
-              ),
-              const SizedBox(height: 8),
-              CustomTextField(
-                labelText: 'Apellido',
-                controller: apellidoController,
-              ),
-              const SizedBox(height: 8),
-              CustomTextField(labelText: 'Email', controller: emailController),
-              const SizedBox(height: 8),
-              CustomTextField(
-                labelText: 'Contraseña',
-                obscureText: true,
-                controller: passwordController,
-              ),
-              const SizedBox(height: 8),
-              CustomTextField(
-                labelText: 'Confirmar Contraseña',
-                obscureText: true,
-                controller: confirmPasswordController,
-              ),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () async {
-                  if (await registerControler.validarDatos(
-                    dniController.text,
-                    nombreController.text,
-                    apellidoController.text,
-                    emailController.text,
-                    passwordController.text,
-                    confirmPasswordController.text,
-                    context,
-                  )) {
-                    onNext();
-                  }
-                },
-                child: const Text('Siguiente'),
-              ),
-            ],
+            ),
           ),
         ),
-        doYouHaveAnAccount(),
+        doYouHaveAnAccount(context),
         const SizedBox(height: 3),
       ],
     );

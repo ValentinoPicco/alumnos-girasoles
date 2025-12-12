@@ -82,7 +82,7 @@ class RegisterStep5 extends StatelessWidget {
             ),
           ],
         ),
-        doYouHaveAnAccount(),
+        doYouHaveAnAccount(context),
         const SizedBox(height: 3),
       ],
     );

@@ -20,8 +20,14 @@ class CustomTextField extends StatelessWidget {
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
           border: OutlineInputBorder(),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.amber, width: 2.0),
+          ),
           labelText: labelText,
+          floatingLabelStyle: TextStyle(color: Colors.black),
         ),
       ),
     );

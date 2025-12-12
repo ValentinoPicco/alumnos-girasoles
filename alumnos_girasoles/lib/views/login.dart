@@ -1,3 +1,5 @@
+import 'package:alumnos_girasoles/views/home.dart';
+import 'package:alumnos_girasoles/views/register.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:alumnos_girasoles/widgets/custom_text_field.dart';
@@ -27,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         title: const Text('Instituto Girasoles'),
         centerTitle: true,
-        backgroundColor: Colors.amberAccent,
+        backgroundColor: Colors.amber,
       ),
       body: Center(
         child: Builder(
@@ -40,36 +42,53 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text(
-                        'Iniciar Sesión',
-                        style: TextStyle(fontSize: 28.0),
-                      ),
-                      const SizedBox(height: 15),
-                      CustomTextField(
-                        labelText: 'Email',
-                        controller: emailController,
-                      ),
-                      const SizedBox(height: 8),
-                      CustomTextField(
-                        labelText: 'Contraseña',
-                        obscureText: true,
-                        controller: passwordController,
-                      ),
-                      const SizedBox(height: 10),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.amberAccent,
-                        ),
-                        onPressed: () {
-                          print('Ingresando');
-                          signInDocente(
-                            emailController.text,
-                            passwordController.text,
-                          );
-                        },
-                        child: const Text(
-                          'Ingresar',
-                          style: TextStyle(color: Colors.black),
+                      Card(
+                        color: Colors.amberAccent,
+                        elevation: 10,
+                        child: SizedBox(
+                          width: 350,
+                          height: 365,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'Iniciar Sesión',
+                                style: TextStyle(fontSize: 28.0),
+                              ),
+                              const SizedBox(height: 15),
+                              CustomTextField(
+                                labelText: 'Email',
+                                controller: emailController,
+                              ),
+                              const SizedBox(height: 8),
+                              CustomTextField(
+                                labelText: 'Contraseña',
+                                obscureText: true,
+                                controller: passwordController,
+                              ),
+                              const SizedBox(height: 35),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.amber,
+                                ),
+                                onPressed: () async {
+                                  if (await signInDocente(
+                                    emailController.text,
+                                    passwordController.text,
+                                  )) {
+                                    Navigator.pushNamed(
+                                      context,
+                                      HomeScreen.routeName,
+                                    );
+                                  }
+                                },
+                                child: const Text(
+                                  'Ingresar',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -81,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const Text('¿Todavía no te registraste?'),
                     TextButton(
                       onPressed: () {
-                        print('Ir a registrarse');
+                        Navigator.pushNamed(context, RegisterScreen.routeName);
                       },
                       child: const Text(
                         'Hazlo Aquí',
@@ -98,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void signInDocente(String email, String password) async {
+  Future<bool> signInDocente(String email, String password) async {
     try {
       final response = await Supabase.instance.client.auth.signInWithPassword(
         email: email,
@@ -107,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (response.user != null) {
         print('Ingresaste con éxito: ${response.user!.email}');
-        // Podés redirigir a otra pantalla o mostrar mensaje
+        return true;
       } else if (response.session == null) {
         print('Registro incompleto, falta confirmar el email');
       } else {
@@ -116,25 +135,6 @@ class _LoginScreenState extends State<LoginScreen> {
     } catch (e) {
       print('Error: $e');
     }
-  }
-}
-
-void signInDocente(String email, String password) async {
-  try {
-    final response = await Supabase.instance.client.auth.signInWithPassword(
-      email: email,
-      password: password,
-    );
-
-    if (response.user != null) {
-      print('Ingresaste con éxito: ${response.user!.email}');
-      // Podés redirigir a otra pantalla o mostrar mensaje
-    } else if (response.session == null) {
-      print('Registro incompleto, falta confirmar el email');
-    } else {
-      print('Error: ${response}');
-    }
-  } catch (e) {
-    print('Error: $e');
+    return false;
   }
 }

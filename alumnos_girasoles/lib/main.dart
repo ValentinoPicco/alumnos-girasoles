@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: RegisterScreen.routeName,
+      initialRoute: LoginScreen.routeName,
       onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }

@@ -149,7 +149,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       appBar: AppBar(
         title: const Text('Creando tu cuenta'),
         centerTitle: true,
-        backgroundColor: Colors.amberAccent,
+        backgroundColor: Colors.amber,
       ),
       body: Center(child: buildStepContent()),
     );

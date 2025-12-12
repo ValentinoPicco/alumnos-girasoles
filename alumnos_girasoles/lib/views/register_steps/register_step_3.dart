@@ -41,7 +41,7 @@ class RegisterStep3 extends StatelessWidget {
             ],
           ),
         ),
-        doYouHaveAnAccount(),
+        doYouHaveAnAccount(context),
         const SizedBox(height: 3),
       ],
     );
