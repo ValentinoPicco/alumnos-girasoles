@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "/home/valentino/Dropbox/Proyectos/alumnos-girasoles/alumnos_girasoles/linux"
+    "cmake.sourceDirectory": "/home/valentino/Dropbox/Proyectos/alumnos-girasoles/alumnos_girasoles/linux",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
