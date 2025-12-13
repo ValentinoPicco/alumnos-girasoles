@@ -29,7 +29,7 @@ class RegisterController {
     }
 
     final dniResponse = await supabase
-        .from('docentes')
+        .from('teachers')
         .select()
         .eq('dni', dni)
         .maybeSingle();
@@ -46,13 +46,12 @@ class RegisterController {
       return false;
     }
 
-    final emailResponse = await supabase
-        .from('docentes')
-        .select()
-        .eq('email', email)
-        .maybeSingle();
+    final bool emailResponse = await supabase.rpc(
+      'check_email_exists',
+      params: {'email_input': email},
+    );
 
-    if (emailResponse != null) {
+    if (emailResponse) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(

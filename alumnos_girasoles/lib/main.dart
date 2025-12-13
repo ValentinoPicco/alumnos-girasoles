@@ -1,9 +1,9 @@
 import 'package:alumnos_girasoles/routes/app_router.dart';
-import 'package:alumnos_girasoles/views/register.dart';
 import 'package:flutter/material.dart';
-import 'package:alumnos_girasoles/views/login.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:alumnos_girasoles/providers/register_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +15,12 @@ Future<void> main() async {
     anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
 
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => RegisterProvider())],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -23,9 +28,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: LoginScreen.routeName,
-      onGenerateRoute: AppRouter.onGenerateRoute,
-    );
+    return MaterialApp(onGenerateRoute: AppRouter.onGenerateRoute);
   }
 }

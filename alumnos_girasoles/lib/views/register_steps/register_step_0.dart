@@ -1,125 +1,186 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:alumnos_girasoles/widgets/custom_text_field.dart';
 import 'package:alumnos_girasoles/widgets/do_you_have_an_account.dart';
 import 'package:alumnos_girasoles/controllers/register_controller.dart';
+import 'package:alumnos_girasoles/providers/register_provider.dart';
+import 'package:alumnos_girasoles/routes/app_router.dart';
 
-class RegisterStep0 extends StatelessWidget {
-  final TextEditingController dniController;
-  final TextEditingController nombreController;
-  final TextEditingController apellidoController;
-  final TextEditingController emailController;
-  final TextEditingController passwordController;
-  final TextEditingController confirmPasswordController;
-  final RegisterController registerControler;
-  final VoidCallback onNext;
-  final BuildContext context;
+class RegisterStep0 extends StatefulWidget {
+  const RegisterStep0({super.key});
 
-  const RegisterStep0({
-    super.key,
-    required this.dniController,
-    required this.nombreController,
-    required this.apellidoController,
-    required this.emailController,
-    required this.passwordController,
-    required this.confirmPasswordController,
-    required this.registerControler,
-    required this.onNext,
-    required this.context,
-  });
+  @override
+  State<RegisterStep0> createState() => _RegisterStep0State();
+}
+
+class _RegisterStep0State extends State<RegisterStep0> {
+  late TextEditingController dniController;
+  late TextEditingController nombreController;
+  late TextEditingController apellidoController;
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
+  late TextEditingController confirmPasswordController;
+  late RegisterController registerController;
+
+  @override
+  void initState() {
+    super.initState();
+    dniController = TextEditingController();
+    nombreController = TextEditingController();
+    apellidoController = TextEditingController();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
+    registerController = RegisterController();
+  }
+
+  @override
+  void dispose() {
+    dniController.dispose();
+    nombreController.dispose();
+    apellidoController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          child: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Card(
-                    color: Colors.amberAccent,
-                    elevation: 10,
-                    child: SizedBox(
-                      width: 350,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const SizedBox(height: 15),
-                          const Text(
-                            'Completa tus datos',
-                            style: TextStyle(fontSize: 28.0),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 15),
-                          CustomTextField(
-                            labelText: 'DNI',
-                            controller: dniController,
-                          ),
-                          const SizedBox(height: 8),
-                          CustomTextField(
-                            labelText: 'Nombre',
-                            controller: nombreController,
-                          ),
-                          const SizedBox(height: 8),
-                          CustomTextField(
-                            labelText: 'Apellido',
-                            controller: apellidoController,
-                          ),
-                          const SizedBox(height: 8),
-                          CustomTextField(
-                            labelText: 'Email',
-                            controller: emailController,
-                          ),
-                          const SizedBox(height: 8),
-                          CustomTextField(
-                            labelText: 'Contraseña',
-                            obscureText: true,
-                            controller: passwordController,
-                          ),
-                          const SizedBox(height: 8),
-                          CustomTextField(
-                            labelText: 'Confirmar Contraseña',
-                            obscureText: true,
-                            controller: confirmPasswordController,
-                          ),
-                          const SizedBox(height: 20),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.amber,
-                            ),
-                            onPressed: () async {
-                              if (await registerControler.validarDatos(
-                                dniController.text,
-                                nombreController.text,
-                                apellidoController.text,
-                                emailController.text,
-                                passwordController.text,
-                                confirmPasswordController.text,
-                                context,
-                              )) {
-                                onNext();
-                              }
-                            },
-                            child: const Text(
-                              'Siguiente',
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ),
-                          const SizedBox(height: 25),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+    return Consumer<RegisterProvider>(
+      builder: (context, registerProvider, _) {
+        return Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color.fromARGB(255, 9, 70, 87), // Verde azulado oscuro
+                Color.fromARGB(255, 56, 143, 170),
+              ],
             ),
           ),
-        ),
-        doYouHaveAnAccount(context),
-        const SizedBox(height: 3),
-      ],
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Center(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Card(
+                          color: Colors.amberAccent,
+                          elevation: 15,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          clipBehavior: Clip.antiAlias,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.yellow,
+                                  Colors.amberAccent,
+                                  Colors.amber,
+                                ],
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                              ),
+                            ),
+                            child: SizedBox(
+                              width: 350,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const SizedBox(height: 15),
+                                  const Text(
+                                    'Completa tus datos',
+                                    style: TextStyle(fontSize: 28.0),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const SizedBox(height: 15),
+                                  CustomTextField(
+                                    labelText: 'DNI',
+                                    controller: dniController,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  CustomTextField(
+                                    labelText: 'Nombre',
+                                    controller: nombreController,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  CustomTextField(
+                                    labelText: 'Apellido',
+                                    controller: apellidoController,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  CustomTextField(
+                                    labelText: 'Email',
+                                    controller: emailController,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  CustomTextField(
+                                    labelText: 'Contraseña',
+                                    obscureText: true,
+                                    controller: passwordController,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  CustomTextField(
+                                    labelText: 'Confirmar Contraseña',
+                                    obscureText: true,
+                                    controller: confirmPasswordController,
+                                  ),
+                                  const SizedBox(height: 20),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.amber,
+                                    ),
+                                    onPressed: () async {
+                                      if (await registerController.validarDatos(
+                                        dniController.text,
+                                        nombreController.text,
+                                        apellidoController.text,
+                                        emailController.text,
+                                        passwordController.text,
+                                        confirmPasswordController.text,
+                                        context,
+                                      )) {
+                                        registerProvider.setPersonalData(
+                                          dni: dniController.text,
+                                          nombre: nombreController.text,
+                                          apellido: apellidoController.text,
+                                          email: emailController.text,
+                                          password: passwordController.text,
+                                        );
+                                        Navigator.pushNamed(
+                                          context,
+                                          AppRouter.registerStep1Route,
+                                        );
+                                      }
+                                    },
+                                    child: const Text(
+                                      'Siguiente',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 25),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              doYouHaveAnAccount(context),
+              const SizedBox(height: 3),
+            ],
+          ),
+        );
+      },
     );
   }
 }
