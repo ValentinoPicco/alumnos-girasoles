@@ -51,7 +51,6 @@ class RegisterStep5 extends StatelessWidget {
                                     end: Alignment.topCenter,
                                   ),
                                 ),
-
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [

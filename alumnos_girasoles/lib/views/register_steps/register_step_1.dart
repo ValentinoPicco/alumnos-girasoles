@@ -54,21 +54,21 @@ class RegisterStep1 extends StatelessWidget {
                             ),
                           ),
                           child: SizedBox(
-                            height: 300,
-                            width: 400,
+                            width: 350,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+                                SizedBox(height: 25.0),
                                 Text(
                                   '¿En qué ciclo das clases?',
                                   style: GoogleFonts.notoSans(
                                     color: Colors.black,
-                                    fontSize: 28.0,
+                                    fontSize: 26.0,
                                     fontWeight: FontWeight.w600,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
-                                const SizedBox(height: 50),
+                                const SizedBox(height: 25),
                                 CustomRadioButtons(
                                   options: [
                                     "Primer Ciclo",
@@ -128,6 +128,7 @@ class RegisterStep1 extends StatelessWidget {
                                     ),
                                   ],
                                 ),
+                                SizedBox(height: 20.0),
                               ],
                             ),
                           ),
