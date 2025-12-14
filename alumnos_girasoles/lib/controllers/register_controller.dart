@@ -23,7 +23,19 @@ class RegisterController {
         password.isEmpty ||
         confirmPassword.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor, completa todos los campos')),
+        SnackBar(
+          content: Text(
+            'Por favor, completa todos los campos',
+            textAlign: TextAlign.center,
+          ),
+          elevation: 10.0,
+          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 3),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadiusGeometry.circular(15.0),
+          ),
+        ),
       );
       return false;
     }
@@ -40,6 +52,13 @@ class RegisterController {
           content: Text(
             'Ya existe un docente con ese DNI',
             textAlign: TextAlign.center,
+          ),
+          elevation: 10.0,
+          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 2),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadiusGeometry.circular(15.0),
           ),
         ),
       );
@@ -58,6 +77,13 @@ class RegisterController {
             'Ya existe un docente con ese email',
             textAlign: TextAlign.center,
           ),
+          elevation: 10.0,
+          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 3),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadiusGeometry.circular(15.0),
+          ),
         ),
       );
       return false;
@@ -65,7 +91,19 @@ class RegisterController {
 
     if (!email.contains('@')) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor, ingresa un correo válido')),
+        SnackBar(
+          content: Text(
+            'Por favor, ingresa un correo válido',
+            textAlign: TextAlign.center,
+          ),
+          elevation: 10.0,
+          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 3),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadiusGeometry.circular(15.0),
+          ),
+        ),
       );
       return false;
     }
@@ -73,16 +111,38 @@ class RegisterController {
     if (password.trim().length < 6) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('La contraseña debe tener al menos 6 caracteres'),
+          content: Text(
+            'La contraseña debe tener al menos 6 caracteres',
+            textAlign: TextAlign.center,
+          ),
+          elevation: 10.0,
+          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 3),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadiusGeometry.circular(15.0),
+          ),
         ),
       );
       return false;
     }
 
     if (password.trim() != confirmPassword.trim()) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Las contraseñas no coinciden')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Las contraseñas no coinciden',
+            textAlign: TextAlign.center,
+          ),
+          elevation: 10.0,
+          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 3),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadiusGeometry.circular(15.0),
+          ),
+        ),
+      );
       return false;
     }
 
