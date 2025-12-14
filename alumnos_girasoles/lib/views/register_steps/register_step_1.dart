@@ -12,69 +12,97 @@ class RegisterStep1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<RegisterProvider>(
       builder: (context, registerProvider, _) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text(
-                    '¿En qué ciclo das clases?',
-                    style: TextStyle(fontSize: 28.0),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 15),
-                  CustomRadioButtons(
-                    options: ["Primer Ciclo", "Segundo Ciclo", "Ambos"],
-                    onChanged: (value) {
-                      switch (value) {
-                        case 0:
-                          registerProvider.setLevel('lower');
-                          break;
-                        case 1:
-                          registerProvider.setLevel('upper');
-                          break;
-                        case 2:
-                          registerProvider.setLevel('both');
-                          break;
-                        default:
-                      }
-                      debugPrint("Seleccionado: $value");
-                    },
-                  ),
-                  const SizedBox(height: 30),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(
-                            context,
-                            AppRouter.registerStep0Route,
-                          );
-                        },
-                        child: const Text('Atrás'),
-                      ),
-                      const SizedBox(width: 10),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(
-                            context,
-                            AppRouter.registerStep2Route,
-                          );
-                        },
-                        child: const Text('Siguiente'),
-                      ),
-                    ],
-                  ),
+        return Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color.fromARGB(255, 9, 70, 87), // Verde azulado oscuro
+                  Color.fromARGB(255, 56, 143, 170),
                 ],
               ),
             ),
-            doYouHaveAnAccount(context),
-            const SizedBox(height: 3),
-          ],
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Card(),
+                      const Text(
+                        '¿En qué ciclo das clases?',
+                        style: TextStyle(fontSize: 28.0),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 15),
+                      CustomRadioButtons(
+                        options: ["Primer Ciclo", "Segundo Ciclo", "Ambos"],
+                        onChanged: (value) {
+                          switch (value) {
+                            case 0:
+                              registerProvider.setLevel('lower');
+                              break;
+                            case 1:
+                              registerProvider.setLevel('upper');
+                              break;
+                            case 2:
+                              registerProvider.setLevel('both');
+                              break;
+                            default:
+                          }
+                          debugPrint("Seleccionado: $value");
+                        },
+                      ),
+                      const SizedBox(height: 30),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                context,
+                                AppRouter.registerStep0Route,
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.amber,
+                            ),
+                            child: const Text(
+                              'Atrás',
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                context,
+                                AppRouter.registerStep2Route,
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.amber,
+                            ),
+                            child: const Text(
+                              'Siguiente',
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                doYouHaveAnAccount(context),
+                const SizedBox(height: 3),
+              ],
+            ),
+          ),
         );
       },
     );

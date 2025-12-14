@@ -4,10 +4,13 @@ Widget doYouHaveAnAccount(BuildContext context) {
   Widget result = Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      const Text('¿Ya tienes una cuenta?'),
+      const Text(
+        '¿Ya tienes una cuenta?',
+        style: TextStyle(color: Colors.black),
+      ),
       TextButton(
         onPressed: () {
-          Navigator.pop(context);
+          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
         },
         child: const Text(
           'Inicia sesión',

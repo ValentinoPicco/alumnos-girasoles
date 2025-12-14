@@ -57,6 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 color: Color.fromARGB(255, 236, 236, 236),
                                 fontSize: 40.0,
                               ),
+                              textAlign: TextAlign.center,
                             ),
                             const SizedBox(height: 80),
                             Card(
