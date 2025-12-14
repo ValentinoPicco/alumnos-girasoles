@@ -14,7 +14,7 @@ class CustomRadioButtons extends StatefulWidget {
     required this.options,
     required this.onChanged,
     this.initialValue,
-    this.selectedColor = Colors.amberAccent,
+    this.selectedColor = Colors.white,
     this.unselectedColor = Colors.black,
   });
 

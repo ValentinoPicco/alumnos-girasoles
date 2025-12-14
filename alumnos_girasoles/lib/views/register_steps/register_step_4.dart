@@ -19,7 +19,7 @@ class RegisterStep4 extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    "¿De que grade eres responsable?",
+                    "¿De que grado eres responsable?",
                     style: TextStyle(fontSize: 28.0),
                     textAlign: TextAlign.center,
                   ),

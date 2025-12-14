@@ -5,6 +5,7 @@ import 'package:alumnos_girasoles/widgets/do_you_have_an_account.dart';
 import 'package:alumnos_girasoles/controllers/register_controller.dart';
 import 'package:alumnos_girasoles/providers/register_provider.dart';
 import 'package:alumnos_girasoles/routes/app_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RegisterStep0 extends StatefulWidget {
   const RegisterStep0({super.key});
@@ -49,135 +50,143 @@ class _RegisterStep0State extends State<RegisterStep0> {
   Widget build(BuildContext context) {
     return Consumer<RegisterProvider>(
       builder: (context, registerProvider, _) {
-        return Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color.fromARGB(255, 9, 70, 87), // Verde azulado oscuro
-                Color.fromARGB(255, 56, 143, 170),
-              ],
+        return Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color.fromARGB(255, 9, 70, 87), // Verde azulado oscuro
+                  Color.fromARGB(255, 56, 143, 170),
+                ],
+              ),
             ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Center(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Card(
-                          color: Colors.amberAccent,
-                          elevation: 15,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          clipBehavior: Clip.antiAlias,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.yellow,
-                                  Colors.amberAccent,
-                                  Colors.amber,
-                                ],
-                                begin: Alignment.bottomCenter,
-                                end: Alignment.topCenter,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Center(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Card(
+                            color: Colors.amberAccent,
+                            elevation: 15,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            clipBehavior: Clip.antiAlias,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.yellow,
+                                    Colors.amberAccent,
+                                    Colors.amber,
+                                  ],
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.topCenter,
+                                ),
+                              ),
+                              child: SizedBox(
+                                width: 350,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const SizedBox(height: 15),
+                                    Text(
+                                      'Completa tus datos',
+                                      style: GoogleFonts.notoSans(
+                                        color: Colors.black,
+                                        fontSize: 28.0,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    const SizedBox(height: 15),
+                                    CustomTextField(
+                                      labelText: 'DNI',
+                                      controller: dniController,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    CustomTextField(
+                                      labelText: 'Nombre',
+                                      controller: nombreController,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    CustomTextField(
+                                      labelText: 'Apellido',
+                                      controller: apellidoController,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    CustomTextField(
+                                      labelText: 'Email',
+                                      controller: emailController,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    CustomTextField(
+                                      labelText: 'Contraseña',
+                                      obscureText: true,
+                                      controller: passwordController,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    CustomTextField(
+                                      labelText: 'Confirmar Contraseña',
+                                      obscureText: true,
+                                      controller: confirmPasswordController,
+                                    ),
+                                    const SizedBox(height: 20),
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.amber,
+                                      ),
+                                      onPressed: () async {
+                                        if (await registerController
+                                            .validarDatos(
+                                              dniController.text,
+                                              nombreController.text,
+                                              apellidoController.text,
+                                              emailController.text,
+                                              passwordController.text,
+                                              confirmPasswordController.text,
+                                              context,
+                                            )) {
+                                          registerProvider.setPersonalData(
+                                            dni: dniController.text,
+                                            nombre: nombreController.text,
+                                            apellido: apellidoController.text,
+                                            email: emailController.text,
+                                            password: passwordController.text,
+                                          );
+                                          Navigator.pushNamed(
+                                            context,
+                                            AppRouter.registerStep1Route,
+                                          );
+                                        }
+                                      },
+                                      child: const Text(
+                                        'Siguiente',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 25),
+                                  ],
+                                ),
                               ),
                             ),
-                            child: SizedBox(
-                              width: 350,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const SizedBox(height: 15),
-                                  const Text(
-                                    'Completa tus datos',
-                                    style: TextStyle(fontSize: 28.0),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  const SizedBox(height: 15),
-                                  CustomTextField(
-                                    labelText: 'DNI',
-                                    controller: dniController,
-                                  ),
-                                  const SizedBox(height: 8),
-                                  CustomTextField(
-                                    labelText: 'Nombre',
-                                    controller: nombreController,
-                                  ),
-                                  const SizedBox(height: 8),
-                                  CustomTextField(
-                                    labelText: 'Apellido',
-                                    controller: apellidoController,
-                                  ),
-                                  const SizedBox(height: 8),
-                                  CustomTextField(
-                                    labelText: 'Email',
-                                    controller: emailController,
-                                  ),
-                                  const SizedBox(height: 8),
-                                  CustomTextField(
-                                    labelText: 'Contraseña',
-                                    obscureText: true,
-                                    controller: passwordController,
-                                  ),
-                                  const SizedBox(height: 8),
-                                  CustomTextField(
-                                    labelText: 'Confirmar Contraseña',
-                                    obscureText: true,
-                                    controller: confirmPasswordController,
-                                  ),
-                                  const SizedBox(height: 20),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.amber,
-                                    ),
-                                    onPressed: () async {
-                                      if (await registerController.validarDatos(
-                                        dniController.text,
-                                        nombreController.text,
-                                        apellidoController.text,
-                                        emailController.text,
-                                        passwordController.text,
-                                        confirmPasswordController.text,
-                                        context,
-                                      )) {
-                                        registerProvider.setPersonalData(
-                                          dni: dniController.text,
-                                          nombre: nombreController.text,
-                                          apellido: apellidoController.text,
-                                          email: emailController.text,
-                                          password: passwordController.text,
-                                        );
-                                        Navigator.pushNamed(
-                                          context,
-                                          AppRouter.registerStep1Route,
-                                        );
-                                      }
-                                    },
-                                    child: const Text(
-                                      'Siguiente',
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 25),
-                                ],
-                              ),
-                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              doYouHaveAnAccount(context),
-              const SizedBox(height: 3),
-            ],
+                doYouHaveAnAccount(context),
+                const SizedBox(height: 3),
+              ],
+            ),
           ),
         );
       },
