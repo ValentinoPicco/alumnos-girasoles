@@ -63,7 +63,7 @@ class RegisterStep2 extends StatelessWidget {
                             ),
                           ),
                           child: SizedBox(
-                            width: 400,
+                            width: 350,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
