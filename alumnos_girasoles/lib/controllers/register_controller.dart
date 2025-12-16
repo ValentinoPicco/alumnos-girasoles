@@ -3,6 +3,7 @@ import 'package:alumnos_girasoles/models/teacher.dart';
 import 'package:alumnos_girasoles/models/teach.dart';
 import 'package:alumnos_girasoles/enums/enums.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:alumnos_girasoles/widgets/beauty_snackbar.dart';
 
 class RegisterController {
   final supabase = Supabase.instance.client;
@@ -22,21 +23,7 @@ class RegisterController {
         email.isEmpty ||
         password.isEmpty ||
         confirmPassword.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Por favor, completa todos los campos',
-            textAlign: TextAlign.center,
-          ),
-          elevation: 10.0,
-          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadiusGeometry.circular(15.0),
-          ),
-        ),
-      );
+      BeautySnackbar.show(context, 'Por favor, completa todos los campos');
       return false;
     }
 
@@ -47,21 +34,9 @@ class RegisterController {
         .maybeSingle();
 
     if (dniResponse != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Ya existe un docente con ese DNI',
-            textAlign: TextAlign.center,
-          ),
-          elevation: 10.0,
-          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 2),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadiusGeometry.circular(15.0),
-          ),
-        ),
-      );
+      if (context.mounted) {
+        BeautySnackbar.show(context, 'Ya existe un docente con ese DNI');
+      }
       return false;
     }
 
@@ -71,78 +46,34 @@ class RegisterController {
     );
 
     if (emailResponse) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Ya existe un docente con ese email',
-            textAlign: TextAlign.center,
-          ),
-          elevation: 10.0,
-          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadiusGeometry.circular(15.0),
-          ),
-        ),
-      );
+      if (context.mounted) {
+        BeautySnackbar.show(context, 'Ya existe un docente con ese email');
+      }
       return false;
     }
 
-    if (!email.contains('@')) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Por favor, ingresa un correo válido',
-            textAlign: TextAlign.center,
-          ),
-          elevation: 10.0,
-          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadiusGeometry.circular(15.0),
-          ),
-        ),
-      );
+    if (!email.contains('@') || !email.contains('.com')) {
+      if (context.mounted) {
+        BeautySnackbar.show(context, 'Por favor, ingresa un email válido');
+      }
       return false;
     }
 
     if (password.trim().length < 6) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'La contraseña debe tener al menos 6 caracteres',
-            textAlign: TextAlign.center,
-          ),
-          elevation: 10.0,
-          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadiusGeometry.circular(15.0),
-          ),
-        ),
-      );
+      if (context.mounted) {
+        BeautySnackbar.show(
+          context,
+          'La contraseña debe tener al menos 6 caracteres',
+        );
+      }
+
       return false;
     }
 
     if (password.trim() != confirmPassword.trim()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Las contraseñas no coinciden',
-            textAlign: TextAlign.center,
-          ),
-          elevation: 10.0,
-          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadiusGeometry.circular(15.0),
-          ),
-        ),
-      );
+      if (context.mounted) {
+        BeautySnackbar.show(context, 'Las contraseñas no coinciden');
+      }
       return false;
     }
 
@@ -159,6 +90,7 @@ class RegisterController {
     String selectedLevel,
     Set<String> subjects,
     Set<String> grades,
+    BuildContext context,
   ) async {
     email = email.trim();
     password = password.trim();
@@ -167,7 +99,9 @@ class RegisterController {
     try {
       response = await supabase.auth.signUp(email: email, password: password);
     } catch (e) {
-      debugPrint('error al registrar user: $e');
+      if (context.mounted) {
+        BeautySnackbar.show(context, 'Ocurrió un error al registrarte \n $e');
+      }
     }
 
     final user = response!.user;
@@ -238,6 +172,7 @@ class RegisterController {
     }
   }
 
+  // basado en la logica de negocio
   Future<bool> insertTeach(
     int dni,
     String selectedLevel,

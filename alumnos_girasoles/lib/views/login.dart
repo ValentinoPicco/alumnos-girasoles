@@ -1,7 +1,7 @@
 import 'package:alumnos_girasoles/routes/app_router.dart';
 import 'package:alumnos_girasoles/views/register/register_entry.dart';
+import 'package:alumnos_girasoles/controllers/login_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:alumnos_girasoles/widgets/custom_text_field.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final LoginController loginController = LoginController();
 
   @override
   void dispose() {
@@ -32,6 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
+            Color.fromARGB(255, 5, 72, 90),
             Color.fromARGB(255, 9, 70, 87), // Verde azulado oscuro
             Color.fromARGB(255, 56, 143, 170),
           ],
@@ -71,9 +73,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 decoration: BoxDecoration(
                                   gradient: LinearGradient(
                                     colors: [
-                                      Colors.yellow,
-                                      Colors.amberAccent,
+                                      const Color.fromARGB(255, 255, 234, 49),
+                                      const Color.fromARGB(255, 255, 209, 43),
                                       Colors.amber,
+                                      const Color.fromARGB(255, 255, 153, 0),
+                                      const Color.fromARGB(255, 255, 145, 0),
                                     ],
                                     begin: Alignment.bottomCenter,
                                     end: Alignment.topCenter,
@@ -110,14 +114,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                           backgroundColor: Colors.amber,
                                         ),
                                         onPressed: () async {
-                                          if (await signInDocente(
-                                            emailController.text,
-                                            passwordController.text,
-                                          )) {
-                                            Navigator.pushReplacementNamed(
-                                              context,
-                                              AppRouter.homeRoute,
-                                            );
+                                          if (await loginController
+                                              .signInDocente(
+                                                emailController.text,
+                                                passwordController.text,
+                                                context,
+                                              )) {
+                                            if (context.mounted) {
+                                              Navigator.pushReplacementNamed(
+                                                context,
+                                                AppRouter.homeRoute,
+                                              );
+                                            }
                                           }
                                         },
                                         child: const Text(
@@ -160,27 +168,5 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-  }
-
-  // pasar esto a un controller
-  Future<bool> signInDocente(String email, String password) async {
-    try {
-      final response = await Supabase.instance.client.auth.signInWithPassword(
-        email: email,
-        password: password,
-      );
-
-      if (response.user != null) {
-        print('Ingresaste con éxito: ${response.user!.email}');
-        return true;
-      } else if (response.session == null) {
-        print('Registro incompleto, falta confirmar el email');
-      } else {
-        print('Error: ${response}');
-      }
-    } catch (e) {
-      print('Error: $e');
-    }
-    return false;
   }
 }

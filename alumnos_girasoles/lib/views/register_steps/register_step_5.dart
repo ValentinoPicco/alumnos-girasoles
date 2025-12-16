@@ -29,6 +29,7 @@ class RegisterStep5 extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                SizedBox(height: 50),
                 Expanded(
                   child: Center(
                     child: SingleChildScrollView(
@@ -38,14 +39,18 @@ class RegisterStep5 extends StatelessWidget {
                           SizedBox(
                             width: 1000,
                             child: Card(
+                              elevation: 15.0,
                               clipBehavior: Clip.antiAlias,
                               child: Container(
                                 decoration: BoxDecoration(
                                   gradient: LinearGradient(
                                     colors: [
                                       Colors.yellow,
-                                      Colors.amberAccent,
+                                      const Color.fromARGB(255, 255, 234, 49),
+                                      const Color.fromARGB(255, 255, 209, 43),
                                       Colors.amber,
+                                      const Color.fromARGB(255, 255, 153, 0),
+                                      const Color.fromARGB(255, 255, 145, 0),
                                     ],
                                     begin: Alignment.bottomCenter,
                                     end: Alignment.topCenter,
@@ -65,12 +70,17 @@ class RegisterStep5 extends StatelessWidget {
                                       textAlign: TextAlign.center,
                                     ),
                                     SizedBox(height: 10.0),
-                                    Wrap(
-                                      alignment: WrapAlignment.center,
-                                      spacing: 10,
-                                      runSpacing: 20,
-                                      children: registerProvider.subjectsToShow.map(
-                                        (subject) {
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0,
+                                      ),
+                                      child: Wrap(
+                                        alignment: WrapAlignment.center,
+                                        spacing: 10,
+                                        runSpacing: 20,
+                                        children: registerProvider.subjectsToShow.map((
+                                          subject,
+                                        ) {
                                           final subj = Subject.values
                                               .firstWhere(
                                                 (e) =>
@@ -147,8 +157,8 @@ class RegisterStep5 extends StatelessWidget {
                                               ),
                                             ),
                                           );
-                                        },
-                                      ).toList(),
+                                        }).toList(),
+                                      ),
                                     ),
                                     const SizedBox(height: 30),
                                     Row(
@@ -204,6 +214,7 @@ class RegisterStep5 extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(height: 50),
                 doYouHaveAnAccount(context),
                 const SizedBox(height: 3),
               ],

@@ -161,10 +161,12 @@ class _RegisterStep0State extends State<RegisterStep0> {
                                             email: emailController.text,
                                             password: passwordController.text,
                                           );
-                                          Navigator.pushNamed(
-                                            context,
-                                            AppRouter.registerStep1Route,
-                                          );
+                                          if (context.mounted) {
+                                            Navigator.pushNamed(
+                                              context,
+                                              AppRouter.registerStep1Route,
+                                            );
+                                          }
                                         }
                                       },
                                       child: const Text(
