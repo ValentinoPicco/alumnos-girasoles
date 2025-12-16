@@ -10,8 +10,8 @@ class RegisterProvider extends ChangeNotifier {
 
   // Datos personales
   String dni = '';
-  String nombre = '';
-  String apellido = '';
+  String name = '';
+  String surname = '';
   String email = '';
   String password = '';
 
@@ -59,14 +59,14 @@ class RegisterProvider extends ChangeNotifier {
 
   void setPersonalData({
     required String dni,
-    required String nombre,
-    required String apellido,
+    required String name,
+    required String surname,
     required String email,
     required String password,
   }) {
     this.dni = dni;
-    this.nombre = nombre;
-    this.apellido = apellido;
+    this.name = name;
+    this.surname = surname;
     this.email = email;
     this.password = password;
     notifyListeners();
@@ -105,8 +105,8 @@ class RegisterProvider extends ChangeNotifier {
     selectedSubjects = {};
     isResponsibleTeacher = false;
     dni = '';
-    nombre = '';
-    apellido = '';
+    name = '';
+    surname = '';
     email = '';
     password = '';
     notifyListeners();

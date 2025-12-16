@@ -16,8 +16,8 @@ class RegisterStep0 extends StatefulWidget {
 
 class _RegisterStep0State extends State<RegisterStep0> {
   late TextEditingController dniController;
-  late TextEditingController nombreController;
-  late TextEditingController apellidoController;
+  late TextEditingController nameController;
+  late TextEditingController surnameController;
   late TextEditingController emailController;
   late TextEditingController passwordController;
   late TextEditingController confirmPasswordController;
@@ -27,8 +27,8 @@ class _RegisterStep0State extends State<RegisterStep0> {
   void initState() {
     super.initState();
     dniController = TextEditingController();
-    nombreController = TextEditingController();
-    apellidoController = TextEditingController();
+    nameController = TextEditingController();
+    surnameController = TextEditingController();
     emailController = TextEditingController();
     passwordController = TextEditingController();
     confirmPasswordController = TextEditingController();
@@ -38,8 +38,8 @@ class _RegisterStep0State extends State<RegisterStep0> {
   @override
   void dispose() {
     dniController.dispose();
-    nombreController.dispose();
-    apellidoController.dispose();
+    nameController.dispose();
+    surnameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
@@ -114,12 +114,12 @@ class _RegisterStep0State extends State<RegisterStep0> {
                                     const SizedBox(height: 8),
                                     CustomTextField(
                                       labelText: 'Nombre',
-                                      controller: nombreController,
+                                      controller: nameController,
                                     ),
                                     const SizedBox(height: 8),
                                     CustomTextField(
                                       labelText: 'Apellido',
-                                      controller: apellidoController,
+                                      controller: surnameController,
                                     ),
                                     const SizedBox(height: 8),
                                     CustomTextField(
@@ -147,8 +147,8 @@ class _RegisterStep0State extends State<RegisterStep0> {
                                         if (await registerController
                                             .validarDatos(
                                               dniController.text,
-                                              nombreController.text,
-                                              apellidoController.text,
+                                              nameController.text,
+                                              surnameController.text,
                                               emailController.text,
                                               passwordController.text,
                                               confirmPasswordController.text,
@@ -156,8 +156,8 @@ class _RegisterStep0State extends State<RegisterStep0> {
                                             )) {
                                           registerProvider.setPersonalData(
                                             dni: dniController.text,
-                                            nombre: nombreController.text,
-                                            apellido: apellidoController.text,
+                                            name: nameController.text,
+                                            surname: surnameController.text,
                                             email: emailController.text,
                                             password: passwordController.text,
                                           );

@@ -4,6 +4,7 @@ import 'package:alumnos_girasoles/widgets/do_you_have_an_account.dart';
 import 'package:alumnos_girasoles/enums/enums.dart';
 import 'package:alumnos_girasoles/providers/register_provider.dart';
 import 'package:alumnos_girasoles/routes/app_router.dart';
+import 'package:alumnos_girasoles/controllers/register_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RegisterStep5 extends StatelessWidget {
@@ -11,6 +12,8 @@ class RegisterStep5 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final RegisterController registerController = RegisterController();
+
     return Consumer<RegisterProvider>(
       builder: (context, registerProvider, _) {
         return Scaffold(
@@ -184,12 +187,33 @@ class RegisterStep5 extends StatelessWidget {
                                         ),
                                         const SizedBox(width: 10),
                                         ElevatedButton(
-                                          onPressed: () {
-                                            // Aquí deberías integrar la lógica para completar el registro
-                                            Navigator.pushNamed(
-                                              context,
-                                              AppRouter.homeRoute,
-                                            );
+                                          onPressed: () async {
+                                            if (await registerController
+                                                .registerAccount(
+                                                  registerProvider.dni,
+                                                  registerProvider.name,
+                                                  registerProvider.surname,
+                                                  registerProvider.email,
+                                                  registerProvider.password,
+                                                  registerProvider
+                                                      .responsibleGrade,
+                                                  registerProvider
+                                                      .selectedLevel,
+                                                  registerProvider
+                                                      .selectedSubjects,
+                                                  registerProvider
+                                                      .selectedGrades,
+                                                  context,
+                                                )) {
+                                              {
+                                                if (context.mounted) {
+                                                  Navigator.pushNamed(
+                                                    context,
+                                                    AppRouter.homeRoute,
+                                                  );
+                                                }
+                                              }
+                                            }
                                           },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: Colors.amber,
