@@ -124,6 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               Navigator.pushReplacementNamed(
                                                 context,
                                                 AppRouter.homeRoute,
+                                                arguments: loginController.dni,
                                               );
                                             }
                                           }

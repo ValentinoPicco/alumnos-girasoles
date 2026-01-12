@@ -20,7 +20,9 @@ class Teacher {
       dni: map['dni'],
       surname: map['surname'],
       name: map['name'],
-      gradeHolder: map['grade_holder'],
+      gradeHolder: map['grade_holder'] != null
+          ? Grade.values.firstWhere((e) => e.name == map['grade_holder'])
+          : null,
       authId: map['auth_id'],
     );
   }
@@ -30,7 +32,7 @@ class Teacher {
       'dni': dni,
       'surname': surname,
       'name': name,
-      'grade_holder': gradeHolder,
+      'grade_holder': gradeHolder?.name,
       'auth_id': authId,
     };
   }

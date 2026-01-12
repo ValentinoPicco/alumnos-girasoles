@@ -45,16 +45,18 @@ class RegisterStep1 extends StatelessWidget {
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
-                                Colors.yellow,
-                                Colors.amberAccent,
+                                const Color.fromARGB(255, 255, 234, 49),
+                                const Color.fromARGB(255, 255, 209, 43),
                                 Colors.amber,
+                                const Color.fromARGB(255, 255, 153, 0),
+                                const Color.fromARGB(255, 255, 145, 0),
                               ],
                               begin: Alignment.bottomCenter,
                               end: Alignment.topCenter,
                             ),
                           ),
                           child: SizedBox(
-                            width: 350,
+                            width: 400,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -88,7 +90,6 @@ class RegisterStep1 extends StatelessWidget {
                                         break;
                                       default:
                                     }
-                                    debugPrint("Seleccionado: $value");
                                   },
                                 ),
                                 const SizedBox(height: 30),

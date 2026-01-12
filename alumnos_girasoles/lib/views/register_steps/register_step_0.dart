@@ -83,9 +83,11 @@ class _RegisterStep0State extends State<RegisterStep0> {
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                   colors: [
-                                    Colors.yellow,
-                                    Colors.amberAccent,
+                                    const Color.fromARGB(255, 255, 234, 49),
+                                    const Color.fromARGB(255, 255, 209, 43),
                                     Colors.amber,
+                                    const Color.fromARGB(255, 255, 153, 0),
+                                    const Color.fromARGB(255, 255, 145, 0),
                                   ],
                                   begin: Alignment.bottomCenter,
                                   end: Alignment.topCenter,

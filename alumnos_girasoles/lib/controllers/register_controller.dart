@@ -102,9 +102,10 @@ class RegisterController {
       if (context.mounted) {
         BeautySnackbar.show(context, 'Ocurrió un error al registrarte \n $e');
       }
+      return false;
     }
 
-    final user = response!.user;
+    final user = response.user;
     final dni = int.parse(dniStr);
 
     return await insertTeacher(
@@ -198,9 +199,10 @@ class RegisterController {
               .from('teaches')
               .insert(teach.toMap())
               .select();
-          debugPrint('Insert Teach OK: $insert');
+          debugPrint('Insert Teach Case 1 OK: $insert');
+          return true;
         } catch (e) {
-          debugPrint('Error al insertar: $e');
+          debugPrint('Insert Teach Case 1 ERROR: $e');
           return false;
         }
       }
@@ -220,9 +222,10 @@ class RegisterController {
               .from('teaches')
               .insert(teach.toMap())
               .select();
-          debugPrint('Insert Teach OK: $insert');
+          debugPrint('IInsert Teach Case 2 OK: $insert');
+          return true;
         } catch (e) {
-          debugPrint('Error al insertar: $e');
+          debugPrint('Insert Teach Case 2 ERROR: $e');
           return false;
         }
       }
@@ -242,9 +245,9 @@ class RegisterController {
               .from('teaches')
               .insert(teach.toMap())
               .select();
-          debugPrint('Insert Teach OK: $insert');
+          debugPrint('Insert Teach Case 3 OK: $insert');
         } catch (e) {
-          debugPrint('Error al insertar: $e');
+          debugPrint('Insert Teach Case 3 ERROR: $e');
           return false;
         }
       }
@@ -258,19 +261,21 @@ class RegisterController {
           gradeName: Grade.values.firstWhere(
             (g) => g.toString().split('.').last == gradeHolder,
           ),
-        );
+        ); // ver los return de por aca y antes
         try {
           final insert = await supabase
               .from('teaches')
               .insert(teach.toMap())
               .select();
-          debugPrint('Insert Teach OK: $insert');
+          debugPrint('Insert Teach Case 4 OK: $insert');
+          return true;
         } catch (e) {
-          debugPrint('Error al insertar: $e');
+          debugPrint('Insert Teach Case 4 ERROR: $e');
           return false;
         }
       }
     }
-    return true;
+    debugPrint('Insert Teach Case 5 ERROR: No entro en ninguna condicion');
+    return false;
   }
 }

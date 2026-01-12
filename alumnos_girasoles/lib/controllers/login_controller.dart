@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginController {
+  int? _dni;
+
+  int? get dni => _dni;
+
   Future<bool> signInDocente(
     String email,
     String password,
@@ -16,6 +20,16 @@ class LoginController {
       );
 
       if (response.user != null) {
+        // Obtener el DNI del usuario de la tabla teachers usando el auth_id
+        final teacher = await Supabase.instance.client
+            .from('teachers')
+            .select()
+            .eq('auth_id', response.user!.id)
+            .maybeSingle();
+
+        if (teacher != null && teacher['dni'] != null) {
+          _dni = teacher['dni'] as int?;
+        }
         return true;
       } else if (response.session == null) {
         if (context.mounted) {

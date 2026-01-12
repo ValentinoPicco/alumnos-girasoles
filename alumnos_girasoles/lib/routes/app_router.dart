@@ -39,7 +39,8 @@ class AppRouter {
       case registerStep5Route:
         return MaterialPageRoute(builder: (_) => RegisterStep5());
       case HomeScreen.routeName:
-        return MaterialPageRoute(builder: (_) => HomeScreen());
+        final dni = settings.arguments as int?;
+        return MaterialPageRoute(builder: (_) => HomeScreen(dni: dni));
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
