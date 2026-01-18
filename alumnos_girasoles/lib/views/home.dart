@@ -3,9 +3,9 @@ import 'package:alumnos_girasoles/controllers/teach_controller.dart';
 import 'package:alumnos_girasoles/widgets/button_card.dart';
 
 class HomeScreen extends StatefulWidget {
-  final int? dni;
+  final int dni;
 
-  const HomeScreen({super.key, this.dni});
+  const HomeScreen({super.key, required this.dni});
   static const String routeName = '/home';
 
   @override
@@ -19,8 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    teachController = TeachController(widget.dni);
-    _futureGrades = teachController.obtainGradesNamesTaught();
+    teachController = TeachController();
+    _futureGrades = teachController.obtainGradesNamesTaught(widget.dni);
   }
 
   @override
@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   "Profesor Girasoles", // PONER NOMBRE DE CADA CUENTA
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
-                accountEmail: Text("DNI: ${widget.dni ?? '---'}"),
+                accountEmail: Text("DNI: ${widget.dni}"),
                 currentAccountPicture: const CircleAvatar(
                   backgroundColor: Colors.white,
                   child: Icon(Icons.person, color: Colors.orange, size: 40),

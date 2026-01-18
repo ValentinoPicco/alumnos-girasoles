@@ -1,3 +1,4 @@
+import 'package:alumnos_girasoles/views/grade_screen.dart';
 import 'package:alumnos_girasoles/views/login.dart';
 import 'package:alumnos_girasoles/views/register/register_entry.dart';
 import 'package:alumnos_girasoles/views/register_steps/register_step_0.dart';
@@ -19,6 +20,7 @@ class AppRouter {
   static const String registerStep4Route = '/register/step4';
   static const String registerStep5Route = '/register/step5';
   static const String homeRoute = '/home';
+  static const String gradeRoute = '/grade';
 
   static Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -39,8 +41,14 @@ class AppRouter {
       case registerStep5Route:
         return MaterialPageRoute(builder: (_) => RegisterStep5());
       case HomeScreen.routeName:
-        final dni = settings.arguments as int?;
+        final dni = settings.arguments as int;
         return MaterialPageRoute(builder: (_) => HomeScreen(dni: dni));
+      case GradeScreen.routeName:
+        final dni = settings.arguments as int;
+        final gradeName = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => GradeScreen(dni: dni, gradeName: gradeName),
+        );
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
